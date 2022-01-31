@@ -1,0 +1,9 @@
+__pycache__/
+build/
+logs/
+temp/
+*.log
+.ipynb_checkpoints/
+.coverage
+.venv
+.pytest_cache
