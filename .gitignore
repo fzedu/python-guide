@@ -7,3 +7,5 @@ temp/
 .coverage
 .venv
 .pytest_cache
+.sass-cache
+_site
