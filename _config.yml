@@ -1,9 +1,9 @@
 # description
 title: Python programming course
-email: l-nafaryus@gmail.com
+lang: "ru_RU"
 description: >- 
   Learn Python with easy.
-baseurl: "" 
+baseurl: "/python-edu" 
 url: "" 
 github_username: fzedu
 
