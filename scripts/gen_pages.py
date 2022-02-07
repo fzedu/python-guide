@@ -7,33 +7,45 @@ import json
 import yaml
 import click
 import logging
+import re
 
 
 root = pathlib.Path(__file__).resolve().parent.parent
 logger = logging.getLogger(__name__)
 
 
-def nb_convert(infile: str, outfile: str):
+def nb_convert(infile: str, outfile: str, lang = "ru"):
     """Convert ipynb file to markdown format.
 
     :param infile:
         Path to the ipynb file.
     :param outfile:
         Path to the output file.
+    :param lang:
+        Language of the content.
     """
     path = pathlib.Path(infile).resolve()
     notebook = json.load(open(path, "r"))
     markdown = open(pathlib.Path(outfile).resolve(), "w")
 
+    #   templates
     header_tmpl = "---\nlayout: default\ntitle: {title}\nmathjax: true\n---\n\n"
-    code_tmpl = "{{% highlight python %}}\n{code}\n{{% endhighlight %}}\n"
+    code_tmpl = "```{lang}\n{code}\n```\n"
     image_tmpl = '<p><img src="data:{mimetype};base64,{data}"></p>\n'
+    html_tmpl = "<p>{content}</p>\n"
 
     #   file header
+    title = path.name.replace(path.suffix, "")
+    m = re.match("^\d+.", title)
+
+    if m:
+        title = title.replace(m.group(), "")
+
     markdown.write(header_tmpl.format(
-        title = path.name.replace(path.suffix, "")
+        title = title
     ))
 
+    #   content
     for cell in notebook["cells"]:
         if cell["cell_type"] == "markdown":
             markdown.write("".join(cell["source"]) + "\n")
@@ -44,7 +56,8 @@ def nb_convert(infile: str, outfile: str):
                 code = "".join(
                     [ "# In [{}]:\n".format(cell["execution_count"]) ] +
                     cell["source"]
-                )
+                ),
+                lang = "python"
             ))
 
             #
@@ -56,7 +69,8 @@ def nb_convert(infile: str, outfile: str):
             for outputs in cell["outputs"]:
                 if outputs["output_type"] == "stream":
                     markdown.write(code_tmpl.format(
-                        code = "".join(outputs["text"])
+                        code = "".join(outputs["text"]),
+                        lang = ""
                     ))
 
                 elif outputs["output_type"] == "display_data":
@@ -66,6 +80,18 @@ def nb_convert(infile: str, outfile: str):
                                 mimetype = key,
                                 data = outputs["data"][key]
                             ))
+                
+                elif outputs["output_type"] == "execute_result":
+                    if "text/html" in outputs["data"].keys():
+                        markdown.write(html_tmpl.format(
+                            content = "".join(outputs["data"]["text/html"])
+                        ))
+                    
+                    elif "text/plain" in outputs["data"].keys():
+                        markdown.write(code_tmpl.format(
+                            code = "".join(outputs["data"]["text/plain"]),
+                            lang = ""
+                        ))
     
         markdown.write("\n")
 
@@ -133,9 +159,12 @@ def construct_nav(path: str, root: str) -> dict:
             header = parse_header(file)
 
             if header is not None:
+                if not header.get("published", True):
+                    continue
+                    
                 navigation.append({
                     "title": header["title"],
-                    "url": str(file.relative_to(root)).replace(file.suffix, ".html")
+                    "url": "/" + str(file.relative_to(root)).replace(file.suffix, ".html")
                 })
     
     return navigation
@@ -144,11 +173,11 @@ def construct_nav(path: str, root: str) -> dict:
 @click.command(help = "Convert notebooks to markdown files and create navigation file.")
 @click.option("-d", "--debug", default = False, is_flag = True,
     help = "Enable debug messages.")
-@click.option("--src-dir", default = root / "notes",
+@click.option("--src-dir", default = root / "guide",
     help = "Specify directory with notebooks.")
-@click.option("--out-dir", default = root / "notes",
+@click.option("--out-dir", default = root / "guide",
     help = "Specify output directory for markdown files.")
-@click.option("--nav-file", default = root / "_data/notes.yml",
+@click.option("--nav-file", default = root / "_data/toc.yml",
     help = "Specify path for the navigation file.")
 def gen_pages(debug, src_dir, out_dir, nav_file):
 

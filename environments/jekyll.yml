@@ -1,0 +1,7 @@
+name: jekyll
+channels:
+  - conda-forge
+dependencies:
+  - rb-jekyll
+  - gcc_linux-64
+  - gxx_linux-64

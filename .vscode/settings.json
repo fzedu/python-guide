@@ -1,3 +1,7 @@
 {
-    "python.pythonPath": "{env:HOME}/.local/share/mambaforge/envs/python-edu/bin/python"
+    "python.pythonPath": "{env:HOME}/.local/share/mambaforge/envs/python-edu/bin/python",
+    "cSpell.enableFiletypes": [
+        "!yaml",
+        "!yml"
+    ]
 }

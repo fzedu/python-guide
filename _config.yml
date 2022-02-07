@@ -1,5 +1,5 @@
 # description
-title: Python programming course
+title: The Python Programming Guide
 lang: "ru_RU"
 description: >- 
   Learn Python with easy.
@@ -9,13 +9,19 @@ github_username: fzedu
 
 # build settings
 markdown: kramdown
-theme: jekyll-theme-midnight
+remote_theme: L-Nafaryus/jekyll-theme-rocket@v0.0.2
 plugins:
   - jekyll-feed
+  - jekyll-remote-theme
 exclude:
-  - Gemfile
-  - Gemfile.lock
-  - environment.yml
+  - environments/
   - scripts/
   - "*.ipynb"
 
+
+defaults:
+- scope:
+    path: "README.md"
+  values:
+    layout: default
+    permalink: "/"

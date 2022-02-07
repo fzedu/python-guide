@@ -4,4 +4,6 @@ channels:
 dependencies:
   - python>=3.9
   - numpy
-  - jupyterlab
+  - ipykernel
+  - pyyaml
+  - matplotlib
