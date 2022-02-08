@@ -9,7 +9,7 @@ github_username: fzedu
 
 # build settings
 markdown: kramdown
-remote_theme: L-Nafaryus/jekyll-theme-rocket@v0.0.2
+remote_theme: L-Nafaryus/jekyll-theme-rocket@v0.0.3
 plugins:
   - jekyll-feed
   - jekyll-remote-theme

@@ -45,6 +45,15 @@ case $1 in
             bundle exec --gemfile=${GEMFILE} jekyll serve --source ${ROOT}
         ;;
 
+    update)
+        _prepare
+        ${TOOL} run --name ${ENV_NAME} --no-capture-output \
+            bundle update --gemfile="${GEMFILE}"
+        ${TOOL} run --name ${ENV_NAME} --no-capture-output ${ROOT}/scripts/gen_pages.py
+        ${TOOL} run --name ${ENV_NAME} --no-capture-output \
+            bundle exec --gemfile=${GEMFILE} jekyll build --source ${ROOT}
+        ;;
+
     remove)
         _prepare
         ${TOOL} env remove --name ${ENV_NAME}
