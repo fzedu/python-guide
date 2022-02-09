@@ -3,7 +3,7 @@
 # The Python Programming Guide 
 
 [![.github/workflows/ci.yaml](https://github.com/fzedu/python-guide/actions/workflows/ci.yaml/badge.svg?branch=master)](https://github.com/fzedu/python-guide/actions/workflows/ci.yaml)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6026498.svg)](https://doi.org/10.5281/zenodo.6026498)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6026498.svg#.YgP9Se9RXd5)](https://doi.org/10.5281/zenodo.6026498#.YgP9Se9RXd5)
 
 Добро пожаловать в очередное руководство по программированию на языке Python!
 
