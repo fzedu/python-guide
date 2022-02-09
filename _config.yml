@@ -1,9 +1,9 @@
 # description
 title: The Python Programming Guide
-lang: "ru_RU"
+lang: "ru"
 description: >- 
   Learn Python with easy.
-baseurl: "/python-edu" 
+baseurl: "/python-guide" 
 url: "" 
 github_username: fzedu
 

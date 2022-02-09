@@ -2,6 +2,8 @@
 ---
 # The Python Programming Guide 
 
+[![.github/workflows/ci.yaml](https://github.com/fzedu/python-guide/actions/workflows/ci.yaml/badge.svg?branch=master)](https://github.com/fzedu/python-guide/actions/workflows/ci.yaml)
+
 Добро пожаловать в очередное руководство по программированию на языке Python!
 
 ## Для кого рассчитано данное руководство
