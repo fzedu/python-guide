@@ -167,6 +167,33 @@ def construct_nav(path: str, root: str) -> dict:
                     "url": "/" + str(file.relative_to(root)).replace(file.suffix, ".html")
                 })
     
+    navigation.sort(key = lambda v: v["url"])
+
+    for n in range(len(navigation)):
+        if n == 0:
+            navigation[n].update({
+                "prev_title": "",
+                "prev_url": "",
+                "next_title": navigation[n + 1]["title"],
+                "next_url": navigation[n + 1]["url"]
+            })
+        
+        elif n == len(navigation) - 1:
+            navigation[n].update({
+                "prev_title": navigation[n - 1]["title"],
+                "prev_url": navigation[n - 1]["url"],
+                "next_title": "",
+                "next_url": ""
+            })
+        
+        else:
+            navigation[n].update({
+                "prev_title": navigation[n - 1]["title"],
+                "prev_url": navigation[n - 1]["url"],
+                "next_title": navigation[n + 1]["title"],
+                "next_url": navigation[n + 1]["url"]
+            })
+
     return navigation
 
 

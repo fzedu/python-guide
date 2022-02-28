@@ -77,6 +77,23 @@
 
             <article>
                 {{ content }}
+                <hr>
+                {% for item in site.data.toc %}
+                    {% if page.url == item.url %}
+                    <div class="grid">
+                        <div class="col" style="float:left">
+                            {% if item.prev_url != "" %}
+                            <a href="{{ item.prev_url | relative_url }}">◄ {{ item.prev_title }}</a>
+                            {% endif %}
+                        </div>
+                        <div class="col text-right">
+                            {% if item.next_url != "" %}
+                            <a href="{{ item.next_url | relative_url }}" style="margin-left:auto">{{ item.next_title }} ►</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endfor %}
             </article>
         </section>
 
