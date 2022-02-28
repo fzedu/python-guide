@@ -6,3 +6,15 @@
 .admonition .title {
     margin-top: -15px;
 }
+
+#toggle:checked~nav {
+    max-height:1500px
+}
+
+#logo {
+    height: 60px;
+}
+
+header h1 {
+    margin: 20px 0px 20px 0px;
+}

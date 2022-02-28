@@ -1,4 +1,4 @@
-name: python-edu
+name: python-guide
 channels:
   - conda-forge
 dependencies:

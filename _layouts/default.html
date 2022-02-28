@@ -35,13 +35,24 @@
                 </label>
 
                 <nav class="main">
+                    <hr class="mobile-only">
                     <a href="{{ '/' | relative_url }}">Home</a>
                     <a href="{{ site.github.repository_url }}">GitHub</a>
+                    <hr class="mobile-only">
                 </nav>
 
                 <div class="centered">
                     <h1>{{ site.title | default: site.github.repository_name }}</h1>
                 </div>
+
+                <nav class="main mobile-only">
+                    <hr>
+                    {% assign sorted_toc = site.data.toc | sort: "url" %}
+                    {% for item in sorted_toc %}
+                        <a href="{{ item.url | relative_url }}">{{ item.title }}</a>
+                    {% endfor %}
+                    <hr>
+                </nav>
             </div>
         </header>
 
