@@ -177,7 +177,7 @@ print(person_1._Person__height)
 > ```python
 > import this
 > ```
-{: .admonition.hint}
+{: .admonition.tip}
 
 ## Наследование
 
